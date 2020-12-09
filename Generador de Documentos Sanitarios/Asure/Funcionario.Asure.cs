@@ -14,8 +14,7 @@ namespace Generador_de_Documentos_Sanitarios.Asure
 
         private static List<Funcionario> funcionarios;
 
-        //ObtenerFuncionarios
-
+      
         #region ObtenerFuncionario
         public static List<Funcionario> ObtnerFuncionarios()
         {
@@ -111,7 +110,6 @@ namespace Generador_de_Documentos_Sanitarios.Asure
             }
         }
         #endregion
-
 
         #region ActualizarFuncionario
 

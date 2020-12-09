@@ -15,46 +15,40 @@ namespace Generador_de_Documentos_Sanitarios.Asure
         private static List<Documento> documentos;
 
 
+        #region Obtener Documentos
 
-
-        public static List<Planta> ObtenerDcumentos()
+        public static List<Documento> ObtenerDocumentos()
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 var consultaSql = "select * from Documento";
 
-                var comando = ConsultaSqlPlanta(connection, consultaSql);
+                var comando = ConsultaSqlDocumento(connection, consultaSql);
 
                 var dataTablePlantas = LlenarDataTable(comando);
 
-                return LLenadoPlantas(dataTablePlantas);
+                return LLenadoDocumentos(dataTablePlantas);
             }
         }
+        #endregion
 
-        public static Planta ObtenerPlantaPorId(int idPlanta)
+        #region Obtener Documento Id
+        public static Documento ObtenerDocumentoPorId(int idPlanta)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 var consultaSql = $"select * from Planta where idPlanta = {idPlanta}";
 
-                var comando = ConsultaSqlPlanta(connection, consultaSql);
+                var comando = ConsultaSqlDocumento(connection, consultaSql);
 
                 var dataTable = LlenarDataTable(comando);
 
-                return CreacionPlanta(dataTable);
+                return CreacionDocumento(dataTable);
             }
         }
+        #endregion
 
-
-
-
-
-
-
-
-        //ObtnerDocumentos
-
-        #region Obtener
+        #region Obtener Todos los documentos
         public static List<Documento> ObtnerDocumentos()
         {
             var dataTable = new DataTable();
@@ -96,8 +90,6 @@ namespace Generador_de_Documentos_Sanitarios.Asure
 
         #endregion
 
-        //AgregarDcocumento
-
         #region Agregar 
         public static int AgregarDcocumento(Documento documento)
 
@@ -133,8 +125,6 @@ namespace Generador_de_Documentos_Sanitarios.Asure
 
 #endregion
 
-        //EliminarDocumentoPorRunUsuario
-
         #region Eliminar
         public static int EliminarDocumentoPorRunUsuario(int Run_Usuario)
         {
@@ -161,8 +151,6 @@ namespace Generador_de_Documentos_Sanitarios.Asure
         }
         #endregion
 
-        //ActualizarDocumento
-
         #region Actualizar
 
         public static int ActualizarDocumento(Documento documento)
@@ -175,7 +163,7 @@ namespace Generador_de_Documentos_Sanitarios.Asure
 
                     connection.Open();
 
-                    SqlCommand sqlCommand = new SqlCommand("UPDATE Documento SET ID_DOCUMENTO = @Id_Documento, APELLIDO = @apellido, TELEFONO = @fono WHERE RUT_CLIENTE = @rut", connection);
+                    SqlCommand sqlCommand = new SqlCommand("UPDATE Documento SET ID_DOCUMENTO = @Id_Documento, TIPO_DOCUMENTO = @Tipo_Documento, ID_REGION = @Id_Region, ID_COMUNA = @Id_Comuna, Dv_Usuario = @Dv_Usuario, RUN_USUARIO = @Run_Usuario, FECHA_CREACION = @Fecha_Creacion WHERE RUT_USUARIO = @Rut_Usuario", connection);
                     sqlCommand.Parameters.AddWithValue("@Id_Documento", documento.Id_Documento);
                     sqlCommand.Parameters.AddWithValue("@Tipo_Documento", documento.Tipo_Documento);
                     sqlCommand.Parameters.AddWithValue("@Id_Region", documento.Id_Region);
@@ -201,10 +189,7 @@ namespace Generador_de_Documentos_Sanitarios.Asure
         }
         #endregion
 
-
-
-
-
+        #region Cosulta Documento
 
         private static SqlCommand ConsultaSqlDocumento(SqlConnection connection, string consulta)
         {
@@ -213,6 +198,9 @@ namespace Generador_de_Documentos_Sanitarios.Asure
             connection.Open();
             return sqlCommand;
         }
+        #endregion
+
+        #region Crear Documento
         private static Documento CreacionDocumento(DataTable dataTable)
         {
             if (dataTable != null && dataTable.Rows.Count > 0)
@@ -232,6 +220,9 @@ namespace Generador_de_Documentos_Sanitarios.Asure
                 return null;
             }
         }
+        #endregion
+
+        #region LLenar Tabla
         private static DataTable LlenarDataTable(SqlCommand comando)
         {
             //2. llenamos el dataTable(conversion)
@@ -240,6 +231,9 @@ namespace Generador_de_Documentos_Sanitarios.Asure
             dataAdapter.Fill(dataTable);
             return dataTable;
         }
+        #endregion
+
+        #region LLenado Documado
         private static List<Documento> LLenadoDocumentos(DataTable dataTable)
         {
             documentos = new List<Documento>();
@@ -258,7 +252,7 @@ namespace Generador_de_Documentos_Sanitarios.Asure
             }
             return documentos;
         }
-
+        #endregion
 
 
 
