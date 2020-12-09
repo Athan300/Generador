@@ -83,16 +83,16 @@ namespace Generador_de_Documentos_Sanitarios.Asure
 
 #endregion
 
-        #region Eliminar
-        public static int EliminarDocumentoPorRunUsuario(int Run_Usuario)
+        #region Eliminar por ID
+        public static int EliminarDocumentoPorIdDocumento(int Id_Documento)
         {
             int resultado = 0;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand sqlCommand = new SqlCommand(null, connection);
-                sqlCommand.CommandText = "Delete from Documento where Run_Usuario = @Run_Usuario";
-                sqlCommand.Parameters.AddWithValue("@Run_Funcionario", Run_Usuario);
+                sqlCommand.CommandText = "Delete from Documento where Id_Documento = @Id_Documento";
+                sqlCommand.Parameters.AddWithValue("@Id_Documento", Id_Documento);
 
                 try
                 {

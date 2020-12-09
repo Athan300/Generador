@@ -16,7 +16,7 @@ namespace Generador_de_Documentos_Sanitarios.Asure
 
 
         #region Obtener Funcionario Id
-        public static Funcionario ObtenerFuncionarioPorId(int Run_Funcionario)
+        public static Funcionario ObtenerFuncionarioPorRun(int Run_Funcionario)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -82,7 +82,7 @@ namespace Generador_de_Documentos_Sanitarios.Asure
 
         #endregion
 
-        #region EliminarFuncionario
+        #region Eliminar Funcionario Run
         public static int EliminarDocumentoPorRunFuncionario(int Run_Funcionario)
         {
             int resultado = 0;
