@@ -33,11 +33,11 @@ namespace Generador_de_Documentos_Sanitarios.Asure
         #endregion
 
         #region Obtener Documento Id
-        public static Documento ObtenerDocumentoPorId(int idPlanta)
+        public static Documento ObtenerDocumentoPorId(int Id_Documento)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                var consultaSql = $"select * from Planta where idPlanta = {idPlanta}";
+                var consultaSql = $"select * from Documento where Id_Documento = {Id_Documento}";
 
                 var comando = ConsultaSqlDocumento(connection, consultaSql);
 
@@ -46,48 +46,6 @@ namespace Generador_de_Documentos_Sanitarios.Asure
                 return CreacionDocumento(dataTable);
             }
         }
-        #endregion
-
-        #region Obtener Todos los documentos
-        public static List<Documento> ObtnerDocumentos()
-        {
-            var dataTable = new DataTable();
-            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
-            {
-                SqlCommand sqlCommand = new SqlCommand(null, sqlConnection);
-                sqlCommand.CommandText = "select * from Documento";
-
-                sqlConnection.Open();
-
-                var dataAdapter = new SqlDataAdapter(sqlCommand);
-
-                dataAdapter.Fill(dataTable);
-
-                for (int i = 0; i < dataTable.Rows.Count; i++)
-                {
-                    Documento documento = new Documento();
-                    documento.Id_Documento = int.Parse(dataTable.Rows[i]["Id_Documento"].ToString());
-                    documento.Tipo_Documento = dataTable.Rows[i]["Tipo_Documemto"].ToString();
-                    documento.Id_Region = int.Parse(dataTable.Rows[i]["Id_Region"].ToString());
-                    documento.Id_Comuna = int.Parse(dataTable.Rows[i]["Id_Comuna"].ToString());
-                    documento.Run_Usuario = int.Parse(dataTable.Rows[i]["Dv_Usuario"].ToString());
-                    documento.Dv_Usuario = dataTable.Rows[i]["Run_Usuario"].ToString();
-                    documento.Fecha_Creacion = DateTime.Parse(dataTable.Rows[i]["Fecha_Creacion"].ToString());
-
-                    documentos.Add(documento);
-
-
-                }
-
-            }
-
-            return documentos;
-
-
-
-
-        }
-
         #endregion
 
         #region Agregar 

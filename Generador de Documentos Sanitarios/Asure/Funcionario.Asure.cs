@@ -14,40 +14,37 @@ namespace Generador_de_Documentos_Sanitarios.Asure
 
         private static List<Funcionario> funcionarios;
 
-      
-        #region ObtenerFuncionario
-        public static List<Funcionario> ObtnerFuncionarios()
+
+        #region Obtener Funcionario Id
+        public static Funcionario ObtenerFuncionarioPorId(int Run_Funcionario)
         {
-            var dataTable = new DataTable();
-            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                SqlCommand sqlCommand = new SqlCommand(null, sqlConnection);
-                sqlCommand.CommandText = "select * from Funcionario";
+                var consultaSql = $"select * from Funcionario where Run_Funcionario = {Run_Funcionario}";
 
-                sqlConnection.Open();
+                var comando = ConsultaSqlFuncionario(connection, consultaSql);
 
-                var dataAdapter = new SqlDataAdapter(sqlCommand);
+                var dataTable = LlenarDataTable(comando);
 
-                dataAdapter.Fill(dataTable);
-
-                for (int i = 0; i < dataTable.Rows.Count; i++)
-                {
-                    Funcionario funcionario = new Funcionario();
-                    funcionario.Dv_Funcionario = dataTable.Rows[i]["Dv_Funcionario"].ToString();
-                    funcionario.Run_Funcionario = int.Parse(dataTable.Rows[i]["Run_Funcionario"].ToString());
-                    funcionario.Nombre_Funcionario = dataTable.Rows[i]["Nombre_Funcionario"].ToString();
-                    funcionario.Apellido_Paterno_Funcionario = dataTable.Rows[i]["Apellido_Paterno_Funcionario"].ToString();
-                    funcionario.Apellido_Materno_Funcionario = dataTable.Rows[i]["Apellido_Materno_Funcionario"].ToString();
-                    
-
-                    funcionarios.Add(funcionario);
-
-
-                }
-
+                return CreacionFuncionario(dataTable);
             }
+        }
+        #endregion
 
-            return funcionarios;
+        #region Obtener Funcionarios
+
+        public static List<Funcionario> ObtenerFuncionarios()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                var consultaSql = "select * from Documento";
+
+                var comando = ConsultaSqlFuncionario(connection, consultaSql);
+
+                var dataTablePlantas = LlenarDataTable(comando);
+
+                return LLenadoFuncionarios(dataTablePlantas);
+            }
         }
         #endregion
 
@@ -146,5 +143,71 @@ namespace Generador_de_Documentos_Sanitarios.Asure
 
         }
         #endregion
+
+        #region Cosulta Funcionario
+
+        private static SqlCommand ConsultaSqlFuncionario(SqlConnection connection, string consulta)
+        {
+            SqlCommand sqlCommand = new SqlCommand(null, connection);
+            sqlCommand.CommandText = consulta;
+            connection.Open();
+            return sqlCommand;
+        }
+        #endregion
+
+        #region Crear Funcionario
+        private static Funcionario CreacionFuncionario(DataTable dataTable)
+        {
+            if (dataTable != null && dataTable.Rows.Count > 0)
+            {
+                Funcionario funcionario = new Funcionario();
+                funcionario.Dv_Funcionario = dataTable.Rows[0]["Dv_Funcionario"].ToString();
+                funcionario.Run_Funcionario = int.Parse(dataTable.Rows[0]["Run_Funcionario"].ToString());
+                funcionario.Nombre_Funcionario = dataTable.Rows[0]["Nombre_Funcionario"].ToString();
+                funcionario.Apellido_Paterno_Funcionario = dataTable.Rows[0]["Apellido_Paterno_Funcionario"].ToString();
+                funcionario.Apellido_Materno_Funcionario = dataTable.Rows[0]["Apellido_Materno_Funcionario"].ToString();
+
+                return funcionario;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region LLenar Tabla
+        private static DataTable LlenarDataTable(SqlCommand comando)
+        {
+            //2. llenamos el dataTable(conversion)
+            var dataTable = new DataTable();
+            var dataAdapter = new SqlDataAdapter(comando);
+            dataAdapter.Fill(dataTable);
+            return dataTable;
+        }
+        #endregion
+
+        #region LLenado Funcionario
+        private static List<Funcionario> LLenadoFuncionarios(DataTable dataTable)
+        {
+            funcionarios = new List<Funcionario>();
+            for (int i = 0; i < dataTable.Rows.Count; i++)
+            {
+                Funcionario funcionario = new Funcionario();
+                funcionario.Dv_Funcionario = dataTable.Rows[i]["Dv_Funcionario"].ToString();
+                funcionario.Run_Funcionario = int.Parse(dataTable.Rows[i]["Run_Funcionario"].ToString());
+                funcionario.Nombre_Funcionario = dataTable.Rows[i]["Nombre_Funcionario"].ToString();
+                funcionario.Apellido_Paterno_Funcionario = dataTable.Rows[i]["Apellido_Paterno_Funcionario"].ToString();
+                funcionario.Apellido_Materno_Funcionario = dataTable.Rows[i]["Apellido_Materno_Funcionario"].ToString();
+
+
+                funcionarios.Add(funcionario);
+            }
+            return funcionarios;
+        }
+        #endregion
+
+
+
     }
 }
