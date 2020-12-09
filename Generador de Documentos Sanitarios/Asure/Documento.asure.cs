@@ -148,7 +148,6 @@ namespace Generador_de_Documentos_Sanitarios.Asure
         #endregion
 
         #region Cosulta Documento
-
         private static SqlCommand ConsultaSqlDocumento(SqlConnection connection, string consulta)
         {
             SqlCommand sqlCommand = new SqlCommand(null, connection);

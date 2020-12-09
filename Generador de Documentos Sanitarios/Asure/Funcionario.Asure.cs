@@ -82,7 +82,7 @@ namespace Generador_de_Documentos_Sanitarios.Asure
 
         #endregion
 
-        #region Eliminar Funcionario Run
+        #region Eliminar Funcionario por Run
         public static int EliminarDocumentoPorRunFuncionario(int Run_Funcionario)
         {
             int resultado = 0;

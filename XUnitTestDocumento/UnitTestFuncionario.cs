@@ -36,5 +36,77 @@ namespace XUnitTestDocumento
             //Assert 
             Assert.Equal(resultadoEsperado, FuncionarioRetornado.Run_Funcionario);
         }
+
+        [Fact]
+        public void TestAgregarFuncionario()
+        {
+            //Arrange
+            int resultadoEsperado = 1;
+            int resultadoObtenido = 0;
+
+            Funcionario funcionario = new Funcionario();
+            funcionario.Dv_Funcionario = "k";
+            funcionario.Run_Funcionario = 11111111;
+            funcionario.Nombre_Funcionario = "El ";
+            funcionario.Apellido_Paterno_Funcionario = "Betox";
+            funcionario.Apellido_Materno_Funcionario = "Bellaquito";
+            
+
+            //Act
+            resultadoObtenido = FuncionarioAsure.AgregarFuncionario(funcionario);
+
+            //Assert 
+            Assert.Equal(resultadoEsperado, resultadoObtenido);
+
+
+        }
+
+        [Fact]
+        public void TestActualizarFuncionario()
+        {
+            //Arrange
+            int resultadoEsperado = 1;
+            int resultadoObtenido = 0;
+
+            Funcionario funcionario = new Funcionario();
+            funcionario.Dv_Funcionario = "k";
+            funcionario.Run_Funcionario = 11111111;
+            funcionario.Nombre_Funcionario = "El ";
+            funcionario.Apellido_Paterno_Funcionario = "Betox";
+            funcionario.Apellido_Materno_Funcionario = "Bellaquito";
+
+            //Act
+            resultadoObtenido = FuncionarioAsure.ActualizarFuncionario(funcionario);
+
+            FuncionarioAsure.ActualizarFuncionario(funcionario);
+
+            //Assert
+            Assert.Equal(resultadoEsperado, resultadoObtenido);
+        }
+
+        [Fact]
+        public void EliminarFuncionarioPorRun()
+        {
+            //Arrange         
+            Funcionario funcionario = new Funcionario();
+            funcionario.Run_Funcionario = 11111111;
+
+
+            int RunFuncionarioEliminar = 11111111;
+
+
+            int resultadoEsperado = 1;
+            int resultadoObtenido = 0;
+
+            FuncionarioAsure.EliminarDocumentoPorRunFuncionario(RunFuncionarioEliminar);
+
+            //Act
+            resultadoObtenido = DocumentoAsure.EliminarDocumentoPorIdDocumento(RunFuncionarioEliminar);
+
+            //Assert 
+            Assert.Equal(resultadoEsperado, resultadoObtenido);
+
+        }
+
     }
 }
