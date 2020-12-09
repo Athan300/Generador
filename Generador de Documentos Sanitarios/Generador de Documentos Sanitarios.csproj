@@ -5,5 +5,9 @@
     <RootNamespace>Generador_de_Documentos_Sanitarios</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+  </ItemGroup>
+
 
 </Project>
