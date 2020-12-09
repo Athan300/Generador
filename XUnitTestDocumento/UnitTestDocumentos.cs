@@ -50,7 +50,7 @@ namespace XUnitTestDocumento
             documento.Id_Comuna = 5;
             documento.Dv_Usuario = "4";
             documento.Run_Usuario = 200026441;
-            documento.Fecha_Creacion = 03 / 20 / 2020;
+            documento.Fecha_Creacion = DateTime.Parse("03 / 20 / 2020".ToString());
 
             //Act
             resultadoObtenido = DocumentoAsure.AgregarDcocumento(documento);
@@ -75,7 +75,7 @@ namespace XUnitTestDocumento
             documento.Id_Comuna = 3;
             documento.Dv_Usuario = "1";
             documento.Run_Usuario = 20002646;
-            documento.Fecha_Creacion = ;
+            documento.Fecha_Creacion = DateTime.Parse("03 / 20 / 2020".ToString());
 
             //Act
             resultadoObtenido = DocumentoAsure.ActualizarDocumento(documento);
